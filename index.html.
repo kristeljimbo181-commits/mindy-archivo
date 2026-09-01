@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Archivo especial — Mindy 💙</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Georgia,serif;
+  color:#174d70;
+  overflow-x:hidden;
+  background:
+    radial-gradient(circle at 8% 12%,white 0 8px,transparent 9px),
+    radial-gradient(circle at 86% 18%,white 0 6px,transparent 7px),
+    radial-gradient(circle at 22% 78%,white 0 7px,transparent 8px),
+    radial-gradient(circle at 78% 82%,white 0 9px,transparent 10px),
+    linear-gradient(135deg,#a8def8,#d9f4ff 48%,#94d1f2);
+  background-size:190px 190px,250px 250px,220px 220px,280px 280px,cover;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.95) 0 2px,transparent 3px),
+    radial-gradient(circle,rgba(255,255,255,.8) 0 3px,transparent 4px);
+  background-size:105px 105px,170px 170px;
+  opacity:.65;
+  animation:twinkle 5s linear infinite;
+}
+
+@keyframes twinkle{
+  0%,100%{opacity:.45}
+  50%{opacity:.9}
+}
+
+.container{
+  width:min(880px,92%);
+  margin:auto;
+  padding:28px 0 70px;
+}
+
+.screen{
+  display:none;
+  animation:appear .65s ease;
+}
+
+.screen.active{display:block}
+
+@keyframes appear{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.card{
+  background:rgba(247,253,255,.94);
+  border:3px solid rgba(65,158,204,.38);
+  border-radius:30px;
+  padding:32px;
+  box-shadow:
+    0 15px 50px rgba(30,120,170,.25),
+    0 0 35px rgba(255,255,255,.9);
+}
+
+.center{text-align:center}
+
+h1{
+  font-size:clamp(42px,10vw,72px);
+  color:#2080b6;
+  margin:8px 0 18px;
+  text-shadow:0 3px 14px white;
+}
+
+h2{
+  color:#2176a5;
+  font-size:30px;
+}
+
+p{
+  font-size:18px;
+  line-height:1.7;
+}
+
+.file{
+  font-family:monospace;
+  color:#2389ba;
+  letter-spacing:2px;
+  font-size:14px;
+}
+
+.small{
+  font-size:14px;
+  opacity:.7;
+}
+
+button{
+  border:2px solid #55add7;
+  border-radius:999px;
+  padding:13px 24px;
+  background:linear-gradient(135deg,#73c8ef,#3b9fd0);
+  color:white;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+  margin:7px;
+  box-shadow:0 5px 17px rgba(35,130,175,.25);
+  transition:.2s;
+}
+
+button:hover{
+  transform:translateY(-3px) scale(1.02);
+  box-shadow:0 0 25px rgba(40,155,210,.45);
+}
+
+input{
+  width:min(100%,360px);
+  padding:15px;
+  border:2px solid #75bddd;
+  border-radius:15px;
+  background:white;
+  color:#174d70;
+  text-align:center;
+  font-size:18px;
+  outline:none;
+}
+
+.clue{
+  background:#e5f7ff;
+  border-left:5px solid #52afd8;
+  border-radius:14px;
+  padding:20px;
+  margin:22px 0;
+}
+
+.choice{
+  display:block;
+  width:min(100%,540px);
+  margin:12px auto;
+  text-align:left;
+}
+
+.choice.correct{background:#4eae8a}
+.choice.wrong{background:#d77b91}
+
+.bigStars{
+  font-size:55px;
+  letter-spacing:18px;
+  margin:25px 0;
+}
+
+.starField{
+  min-height:330px;
+  position:relative;
+  margin:20px 0;
+  border-radius:25px;
+  overflow:hidden;
+  background:linear-gradient(135deg,#79c5eb,#bcecff);
+  border:2px solid #63b4dc;
+  box-shadow:inset 0 0 45px rgba(255,255,255,.7);
+}
+
+.star{
+  position:absolute;
+  font-size:34px;
+  cursor:pointer;
+  user-select:none;
+  transition:.25s;
+  filter:drop-shadow(0 0 7px white);
+}
+
+.star:hover{
+  transform:scale(1.25);
+}
+
+.star.secret{
+  animation:secretGlow 1.1s infinite alternate;
+}
+
+@keyframes secretGlow{
+  from{filter:drop-shadow(0 0 4px white)}
+  to{filter:drop-shadow(0 0 18px white)}
+}
+
+.star.found{
+  transform:scale(1.7);
+  opacity:.2;
+  pointer-events:none;
+}
+
+.profile{
+  background:linear-gradient(135deg,#dff7ff,#f9fdff);
+  border:2px solid #9bd5ed;
+  border-radius:22px;
+  padding:25px;
+  margin:18px 0;
+  text-align:center;
+}
+
+.profileIcon{
+  font-size:65px;
+}
+
+.photo{
+  min-height:230px;
+  border-radius:24px;
+  border:2px dashed #63b7df;
+  background:linear-gradient(135deg,#c8edff,#f3fcff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  text-align:center;
+  margin:20px 0;
+  color:#2375a2;
+}
+
+.photo img{
+  max-width:85%;
+  max-height:300px;
+  border-radius:20px;
+  object-fit:cover;
+  box-shadow:0 0 25px rgba(70,170,215,.3);
+}
+
+.letter{
+  white-space:pre-line;
+  background:#f2fbff;
+  border:1px solid #9bd4eb;
+  border-radius:20px;
+  padding:28px;
+  line-height:1.8;
+  font-size:17px;
+}
+
+.signature{
+  text-align:right;
+  color:#267da9;
+  font-size:21px;
+}
+
+.final{
+  color:#2688b9;
+  font-size:34px;
+  text-shadow:0 0 15px white;
+}
+
+.hiddenMessage{
+  opacity:0;
+  transition:opacity 1s;
+}
+
+.hiddenMessage.show{
+  opacity:1;
+}
+
+.envelope{
+  font-size:70px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.envelope:hover{
+  transform:scale(1.15) rotate(-4deg);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- INICIO -->
+<section class="screen active" id="s0">
+<div class="card center">
+
+<div class="bigStars">⭐ ✨ ⭐</div>
+
+<div class="file">ARCHIVO ESPECIAL / M-03</div>
+
+<h1>MINDY</h1>
+
+<p>
+Este archivo fue creado para una persona
+muy específica...
+</p>
+
+<p>
+Si estás viendo esto, sí.
+<strong>Es para ti. 😭💙</strong>
+</p>
+
+<p>
+Hay recuerdos escondidos, pequeñas pruebas,
+caballos, estrellas y alguna que otra tontería.
+</p>
+
+<p class="small">
+⚠️ Advertencia: probablemente fue creado por
+una persona demasiado pro.
+</p>
+
+<button onclick="go(1);ding()">
+ENTRAR AL ARCHIVO ⭐
+</button>
+
+</div>
+</section>
+
+
+<!-- AMORE -->
+<section class="screen" id="s1">
+<div class="card center">
+
+<div class="file">ARCHIVO 01 / CONTRASEÑA</div>
+
+<h2>🔐 La primera palabra</h2>
+
+<p>
+Hay una palabra escondida en tus recuerdos.
+</p>
+
+<p>
+Era un apodo que dos personas utilizaban
+entre ellas. 💙
+</p>
+
+<p><strong>¿La recuerdas?</strong></p>
+
+<input id="pass" placeholder="escribe aquí..." autocomplete="off">
+
+<br>
+
+<button onclick="password()">DESBLOQUEAR</button>
+
+<p id="passMsg" class="small"></p>
+
+</div>
+</section>
+
+
+<!-- LIVE -->
+<section class="screen" id="s2">
+<div class="card center">
+
+<div class="file">ARCHIVO 02 / PRIMER RECUERDO</div>
+
+<h2>📁 Donde comenzó todo</h2>
+
+<p>
+Hay un recuerdo que este archivo no podía olvidar.
+</p>
+
+<div class="clue">
+<strong>REGISTRO:</strong><br><br>
+Todo comenzó en aquel <strong>live</strong>.
+<br><br>
+Y después llegaron conversaciones,
+bromas y pequeños momentos que terminaron
+significando mucho.
+</div>
+
+<p>
+Pero todavía falta recordar una palabra...
+👀
+</p>
+
+<button onclick="go(3);ding()">
+SIGUIENTE RECUERDO ⭐
+</button>
+
+</div>
+</section>
+
+
+<!-- TWINS -->
+<section class="screen" id="s3">
+<div class="card">
+
+<div class="file">ARCHIVO 03 / COINCIDENCIAS</div>
+
+<h2>⭐ Prueba TWINS</h2>
+
+<p>
+Cuando dos personas hacían exactamente lo mismo,
+¿qué palabra aparecía?
+</p>
+
+<button class="choice"
+onclick="wrong(this,'q3')">
+Besties
+</button>
+
+<button class="choice"
+onclick="wrong(this,'q3')">
+Amore
+</button>
+
+<button class="choice"
+onclick="correct(this,4,'q3')">
+Twinnss ⭐
+</button>
+
+<button class="choice"
+onclick="wrong(this,'q3')">
+JAJA
+</button>
+
+<p id="q3" class="center small"></p>
+
+</div>
+</section>
+
+
+<!-- AMIGA PRO -->
+<section class="screen" id="s4">
+<div class="card center">
+
+<div class="file">ARCHIVO 04 / IDENTIDAD</div>
+
+<h2>😂 DETECTOR DE PERSONA PRO</h2>
+
+<p>
+El sistema ha detectado una persona
+sospechosamente pro.
+</p>
+
+<p>
+¿Quién es?
+</p>
+
+<button class="choice"
+onclick="wrong(this,'q4')">
+Mindy 🐴
+</button>
+
+<button class="choice"
+onclick="wrong(this,'q4')">
+Un caballo ⭐
+</button>
+
+<button class="choice"
+onclick="correct(this,5,'q4')">
+Tu amiga más pro 😘💜
+</button>
+
+<button class="choice"
+onclick="wrong(this,'q4')">
+Freya Skye
+</button>
+
+<p id="q4" class="small"></p>
+
+</div>
+</section>
+
+
+<!-- LONDON -->
+<section class="screen" id="s5">
+<div class="card center">
+
+<div class="file">ARCHIVO 05 / MEMORIA MUSICAL</div>
+
+<h2>🎵 Una canción</h2>
+
+<p>
+Hay una canción que quedó asociada
+a un recuerdo de Mindy.
+</p>
+
+<p>
+Pista:
+<br>
+🎤 Es de tu artista favorita.
+<br>
+🌍 Su título es una ciudad.
+</p>
+
+<button class="choice"
+onclick="wrong(this,'q5')">
+Paris
+</button>
+
+<button class="choice"
+onclick="wrong(this,'q5')">
+Tokyo
+</button>
+
+<button class="choice"
+onclick="correct(this,6,'q5')">
+London — Freya Skye ⭐
+</button>
+
+<button class="choice"
+onclick="wrong(this,'q5')">
+Madrid
+</button>
+
+<p id="q5" class="small"></p>
+
+</div>
+</section>
+
+
+<!-- ZOMBIES -->
+<section class="screen" id="s6">
+<div class="card center">
+
+<div class="file">ARCHIVO 06 / CINE</div>
+
+<h2>🎬 Prueba de película</h2>
+
+<p>
+Una película tenía que aparecer
+en el archivo de Mindy.
+</p>
+
+<p>
+¿Cuál es?
+</p>
+
+<button class="choice"
+onclick="wrong(this,'q6')">
+Frozen
+</button>
+
+<button class="choice"
+onclick="wrong(this,'q6')">
+Moana
+</button>
+
+<button class="choice"
+onclick="correct(this,7,'q6')">
+Zombies 4 🧟‍♀️⭐
+</button>
+
+<button class="choice"
+onclick="wrong(this,'q6')">
+Toy Story
+</button>
+
+<p id="q6" class="small"></p>
+
+</div>
+</section>
+
+
+<!-- ESTRELLAS -->
+<section class="screen" id="s7">
+<div class="card center">
+
+<div class="file">ARCHIVO 07 / MEMORIA ESTELAR</div>
+
+<h2>⭐ El cielo de Mindy</h2>
+
+<p>
+Observa atentamente.
+</p>
+
+<p>
+Durante unos segundos, <strong>5 estrellas especiales</strong>
+brillarán entre todas las demás.
+</p>
+
+<p>
+Después desaparecerán.
+<br>
+Tendrás que recordar dónde estaban.
+</p>
+
+<div id="starField" class="starField"></div>
+
+<p id="starInstruction">
+Preparando el cielo... 👀
+</p>
+
+<p id="starCount">
+0 / 5
+</p>
+
+<p id="starMsg" class="small"></p>
+
+<button id="starNext"
+style="display:none"
+onclick="go(8);ding()">
+CONTINUAR ⭐
+</button>
+
+</div>
+</section>
+
+
+<!-- PERFIL MINDY -->
+<section class="screen" id="s8">
+<div class="card">
+
+<div class="file center">
+ARCHIVO 08 / PERFIL CONFIDENCIAL
+</div>
+
+<h2 class="center">💙 PERFIL DE MINDY 💙</h2>
+
+<p class="center">
+El sistema ha encontrado algunos datos
+sospechosamente importantes...
+</p>
+
+<div class="profile">
+<div class="profileIcon">🎤⭐</div>
+<h2>FREYA SKYE</h2>
+<p>
+<strong>Artista favorita detectada.</strong>
+</p>
+<p class="small">
+Nivel de fan: ⭐⭐⭐⭐⭐
+</p>
+<p>
+🎵 Una canción asociada:
+<strong>London</strong>
+</p>
+</div>
+
+<div class="profile">
+<div class="profileIcon">🥳</div>
+<h2>MALACHI BARTON</h2>
+<p>
+<strong>Favorito detectado.</strong>
+</p>
+<p>
+El sistema intentó calcular el nivel de fan...
+</p>
+<p>
+<strong>ERROR: demasiado alto. 😭</strong>
+</p>
+</div>
+
+<div class="profile">
+<div class="profileIcon">💙⭐</div>
+<h2>FRALACHI</h2>
+<p>
+<strong>Archivo especial detectado.</strong>
+</p>
+<p>
+Freya + Malachi
+<br>
+= <strong>FRALACHI</strong> ⭐
+</p>
+<p class="small">
+El sistema no hará preguntas.
+Simplemente acepta esta información. 😭
+</p>
+</div>
+
+<div class="center">
+
+<p>
+⭐ PERFIL COMPLETADO ⭐
+</p>
+
+<p>
+Diagnóstico final:
+<br>
+<strong>
+Sí, definitivamente eres tú, Mindy.
+</strong>
+</p>
+
+<p class="small">
+Atentamente: <strong>la mejor 🥳💜</strong>
+</p>
+
+<button onclick="go(9);ding()">
+SIGUIENTE ARCHIVO 🌙
+</button>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- RECUERDO PERDIDO -->
+<section class="screen" id="s9">
+<div class="card center">
+
+<div class="file">ARCHIVO 09 / RECUERDO PERDIDO</div>
+
+<h2>🌙 Seis recuerdos</h2>
+
+<p>
+He encontrado 6 recuerdos.
+</p>
+
+<p>
+Pero uno de ellos contiene la última pista.
+<br>
+Puedes abrirlos todos. 👀
+</p>
+
+<div id="memories">
+
+<button onclick="memory(0)">
+⭐ Recuerdo 1
+</button>
+
+<button onclick="memory(1)">
+⭐ Recuerdo 2
+</button>
+
+<button onclick="memory(2)">
+⭐ Recuerdo 3
+</button>
+
+<button onclick="memory(3)">
+⭐ Recuerdo 4
+</button>
+
+<button onclick="memory(4)">
+⭐ Recuerdo 5
+</button>
+
+<button onclick="memory(5)">
+⭐ Recuerdo 6
+</button>
+
+</div>
+
+<div id="memoryText" class="clue"
+style="display:none">
+</div>
+
+<button id="finalUnlock"
+style="display:none"
+onclick="go(10);ding()">
+💌 ABRIR ÚLTIMO ARCHIVO
+</button>
+
+</div>
+</section>
+
+
+<!-- CARTA -->
+<section class="screen" id="s10">
+<div class="card">
+
+<div class="file center">
+ARCHIVO FINAL — DESBLOQUEADO
+</div>
+
+<div class="center">
+<div class="bigStars">⭐ ✨ ⭐</div>
+<div class="envelope" onclick="revealLetter()">💌</div>
+<p>
+<strong>Toca el sobre.</strong>
+</p>
+</div>
+
+<div id="letterContent" style="display:none">
+
+<div class="letter">
+
+Mindy,
+
+Si llegaste hasta aquí, entonces encontraste el último archivo.
+Y creo que ya es hora de decirte algo que quizá no te digo lo suficiente:
+
+Te quiero muchísimo.
+
+No necesito una razón especial para decírtelo. Simplemente eres alguien a quien quiero mucho y que ha significado muchísimo para mí.
+
+Aprecio todos los momentos que hemos compartido, desde que nos conocimos en aquel live hasta todas esas pequeñas cosas que terminaron siendo recuerdos importantes para mí.
+
+Quizá las cosas ya no son como antes. Quizá ahora tenemos otras personas a nuestro lado, otras amistades y nuestras vidas han cambiado un poquito.
+
+Pero eso no borra lo que vivimos.
+
+No importa cuánto cambien las cosas ni cuánto pase el tiempo, siempre voy a tenerte un cariño enorme.
+
+Y aunque nuestra amistad ya no sea exactamente como antes, quiero que sepas que para mí sigues siendo alguien muy especial.
+
+Siempre vas a tener un lugarcito en mi corazón, amore. 🫶
+
+</div>
+
+<p class="signature">
+— Tu twinnss 💗
+</p>
+
+<div class="photo">
+<div style="font-size:65px">🐴⭐</div>
+<strong>FREYA SKYE</strong>
+<p>
+“Esta eres tú en mi historia.”
+</p>
+</div>
+
+<div class="photo">
+<div style="font-size:65px">🪽⭐</div>
+<strong>OLIVIA CHATT</strong>
+<p>
+“Y esta soy yo intentando explicarte
+cuánto te quiero sin saber cómo hacerlo.”
+</p>
+</div>
+
+<div class="center">
+
+<p class="final">
+FIN DEL ARCHIVO ⭐
+</p>
+
+<p>
+🔒 Gracias por haber formado parte de mi historia.
+</p>
+
+<p>
+kajsvdnalsodifuehhwiejeje 😭💙
+</p>
+
+<p class="small">
+P.D. Tu amiga más pro 😘💜
+<br>
+La mejor 🥳💜
+</p>
+
+</div>
+
+</div>
+
+</div>
+</section>
+
+</div>
+
+
+<script>
+
+function ding(){
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+
+    osc.frequency.value=880;
+
+    gain.gain.setValueAtTime(.12,ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+      .001,
+      ctx.currentTime+.18
+    );
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start();
+    osc.stop(ctx.currentTime+.18);
+  }catch(e){}
+}
+
+
+function go(n){
+
+  document
+  .querySelectorAll(".screen")
+  .forEach(x=>x.classList.remove("active"));
+
+  document
+  .getElementById("s"+n)
+  .classList.add("active");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  if(n===7){
+    startStars();
+  }
+}
+
+
+function password(){
+
+  const v=document
+  .getElementById("pass")
+  .value
+  .trim()
+  .toLowerCase();
+
+  const m=document.getElementById("passMsg");
+
+  if(v==="amore"){
+
+    m.textContent=
+    "🔓 ACCESO CONCEDIDO. Sabía que lo recordarías. 💙";
+
+    ding();
+
+    setTimeout(()=>go(2),1000);
+
+  }else{
+
+    m.textContent=
+    "❌ Esa no es... Pista 1: era un apodo. 👀";
+
+    setTimeout(()=>{
+
+      m.textContent=
+      "💡 Pista 2: era una forma cariñosa de llamar a alguien. 💙";
+
+    },1800);
+
+    setTimeout(()=>{
+
+      m.textContent=
+      "👀 Última pista: A _ O R E";
+
+    },3800);
+
+  }
+}
+
+
+function correct(btn,next,msgId){
+
+  btn.classList.add("correct");
+
+  document
+  .getElementById(msgId)
+  .textContent=
+  "⭐ CORRECTO. La pista ha sido desbloqueada. 💙";
+
+  ding();
+
+  setTimeout(()=>go(next),900);
+}
+
+
+function wrong(btn,msgId){
+
+  btn.classList.add("wrong");
+
+  document
+  .getElementById(msgId)
+  .textContent=
+  "❌ No era esa 😭. Inténtalo otra vez.";
+
+  setTimeout(()=>{
+    btn.classList.remove("wrong");
+  },700);
+}
+
+
+let stars=[];
+let found=0;
+
+function startStars(){
+
+  const area=document.getElementById("starField");
+
+  area.innerHTML="";
+  found=0;
+
+  document.getElementById("starCount").textContent="0 / 5";
+  document.getElementById("starNext").style.display="none";
+  document.getElementById("starMsg").textContent="";
+  document.getElementById("starInstruction").textContent=
+  "Mira atentamente... las estrellas especiales aparecerán durante 4 segundos.";
+
+  stars=[];
+
+  for(let i=0;i<25;i++){
+
+    const s=document.createElement("span");
+
+    s.className="star";
+    s.textContent=i<5?"✦":"★";
+
+    s.style.left=(5+Math.random()*88)+"%";
+    s.style.top=(5+Math.random()*82)+"%";
+
+    if(i<5){
+
+      s.classList.add("secret");
+
+      s.dataset.correct="true";
+
+    }
+
+    s.onclick=function(){
+
+      if(s.dataset.correct==="true"){
+        findSecret(s);
+      }else{
+        wrongStar(s);
+      }
+
+    };
+
+    area.appendChild(s);
+    stars.push(s);
+  }
+
+  setTimeout(()=>{
+
+    stars.forEach(s=>{
+
+      if(s.dataset.correct==="true"){
+        s.textContent="★";
+        s.classList.remove("secret");
+      }
+
+    });
+
+    document.getElementById("starInstruction").textContent=
+    "¡Ahora encuéntralas! ⭐";
+
+  },4000);
+}
+
+
+function findSecret(s){
+
+  if(s.classList.contains("found"))return;
+
+  s.classList.add("found");
+
+  found++;
+
+  ding();
+
+  document.getElementById("starCount").textContent=
+  found+" / 5";
+
+  if(found===5){
+
+    document.getElementById("starMsg").textContent=
+    "⭐ TODAS ENCONTRADAS. Detective nivel: la mejor 🥳💜";
+
+    document.getElementById("starNext").style.display=
+    "inline-block";
+  }
+}
+
+
+function wrongStar(s){
+
+  s.style.transform="scale(.7)";
+
+  document.getElementById("starMsg").textContent=
+  "❌ Esa no era... mira bien 😭💙";
+
+  setTimeout(()=>{
+    s.style.transform="";
+  },400);
+}
+
+
+const memories=[
+"📁 Registro 01: Todo comenzó en aquel live.",
+"📁 Registro 02: Hubo una palabra que se convirtió en apodo: amore. 💙",
+"📁 Registro 03: Cada coincidencia podía terminar en TWINS. ⭐",
+"📁 Registro 04: Mindy tiene una debilidad bastante evidente por los caballos. 🐴",
+"📁 Registro 05: London — Freya Skye quedó guardada como un pequeño recuerdo musical. 🎵",
+"🔐 ARCHIVO OCULTO: La persona que creó todo esto es... tu amiga más pro 😘💜"
+];
+
+let opened=[];
+
+function memory(i){
+
+  if(!opened.includes(i)){
+    opened.push(i);
+  }
+
+  const box=document.getElementById("memoryText");
+
+  box.style.display="block";
+  box.textContent=memories[i];
+
+  ding();
+
+  if(opened.length===6){
+
+    setTimeout(()=>{
+
+      box.textContent=
+      "⭐ TODOS LOS RECUERDOS ABIERTOS ⭐\n\n"+
+      "Ahora sí has encontrado la última pista.\n\n"+
+      "No era una contraseña.\n"+
+      "Era recordar quién estaba al otro lado.\n\n"+
+      "💜 Tu amiga más pro 😘";
+
+      document.getElementById("finalUnlock")
+      .style.display="inline-block";
+
+    },500);
+  }
+}
+
+
+function revealLetter(){
+
+  ding();
+
+  document.getElementById("letterContent")
+  .style.display="block";
+
+  document
+  .querySelector(".envelope")
+  .style.display="none";
+
+  document
+  .querySelector("#s10 .center p")
+  .textContent="";
+}
+
+</script>
+
+</body>
+</html>
